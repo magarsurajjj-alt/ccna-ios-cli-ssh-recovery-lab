@@ -1,0 +1,34 @@
+! SW1 - Cisco 2960-24TT - configuration commands applied in this lab
+! NOTE: this is the command set entered, not captured 'show running-config' output.
+! Replace with your real output (show running-config) when you have it.
+!
+hostname SW1
+no ip domain-lookup
+!
+banner motd #Authorized access only!#
+!
+enable secret Cisco123!
+service password-encryption
+!
+ip domain-name lab.local
+username admin secret Admin123!
+!
+! RSA keys were created with: crypto key generate rsa  (1024 bits)
+ip ssh version 2
+!
+line console 0
+ password Console123!
+ login
+ logging synchronous
+!
+line vty 0 15
+ login local
+ transport input ssh
+!
+interface Vlan1
+ ip address 192.168.10.2 255.255.255.0
+ no shutdown
+!
+ip default-gateway 192.168.10.1
+!
+end
